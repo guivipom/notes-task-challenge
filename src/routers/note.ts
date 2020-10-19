@@ -9,19 +9,20 @@ router.post('/notes', async (req : Request, res : Response) => {
     try {
         await note.save()
         res.status(201).send(note)
-    } catch (e : any) {
+    } catch (e) {
         res.status(400).send(e)
     }
 })
 
+
 router.get('/notes' , async (req : Request, res : Response) => {
+
     try {
         const notes :any = await Note.find({})
         res.send(notes)
     } catch (e) {
         res.status(500).send()
     }
-
 })
 
 router.get('/notes/:id', async (req : Request, res : Response) => {
@@ -35,7 +36,7 @@ router.get('/notes/:id', async (req : Request, res : Response) => {
         }
 
         res.send(note)
-    } catch (e : any) {
+    } catch (e) {
         res.status(500).send()
     }
 })
