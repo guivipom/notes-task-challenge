@@ -9,6 +9,8 @@ On this repository I created a small notepad application for NodeJS with Typescr
  * Delete a note
  * Delete multiple notes at the same time
 
+Other technologies I used are Mongoose and MongoDB to maintaind and update a database, Express to create the server and JEST to add some basic endpoint testing.
+
 ## Prerequistes
 
 As a prerequisite you will need to download and install [git](https://git-scm.com/downloads)  [Node.js](https://git-scm.com/downloads) and set up a [MongoDB] database.
