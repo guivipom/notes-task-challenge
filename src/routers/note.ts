@@ -14,40 +14,17 @@ router.post('/notes', async (req : Request, res : Response) => {
     }
 })
 
-// // GET /tasks?completed=true
-// // GET /tasks?limit=10&skip=20
-// // GET /tasks?sortBy=createdAt:desc
-// router.get('/tasks', auth, async (req, res) => {
+router.get('/notes' , async (req : Request, res : Response) => {
+    try {
+        const notes :any = await Note.find({})
+        res.send(notes)
+    } catch (e) {
+        res.status(500).send()
+    }
 
-//     const match = {}
-//     const sort = {}
+})
 
-//     if ( req.query.completed){
-//         match.completed = req.query.completed === 'true'
-//     }
-
-//     if( req.query.sortBy){
-//         const parts = req.query.sortBy.split(':')
-//         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
-//     }
-
-//     try {
-//         await req.user.populate({
-//             path: 'tasks',
-//             match,
-//             options: {
-//                 limit: parseInt(req.query.limit),
-//                 skip: parseInt(req.query.skip),
-//                 sort  
-//             }
-//         }).execPopulate()
-//         res.send(req.user.tasks)
-//     } catch (e) {
-//         res.status(500).send()
-//     }
-// })
-
-router.get('/notes/:id', async (req, res) => {
+router.get('/notes/:id', async (req : Request, res : Response) => {
     const _id : String = req.params.id
 
     try {
@@ -63,7 +40,7 @@ router.get('/notes/:id', async (req, res) => {
     }
 })
 
-router.patch('/notes/:id', async (req, res) => {
+router.patch('/notes/:id', async (req : Request, res : Response) => {
     const updates : String[] = Object.keys(req.body)
     const allowedUpdates : String[] = ['title', 'content']
     const isValidOperation : Boolean = updates.every((update : String) => allowedUpdates.includes(update))
@@ -87,14 +64,26 @@ router.patch('/notes/:id', async (req, res) => {
     }
 })
 
-router.delete('/notes/:id', async (req, res) => {
+router.delete('/notes/:id', async (req : Request, res : Response) => {
     try {
-        const note = await Note.findOneAndDelete({ _id: req.params.id})
+        const note : any = await Note.findOneAndDelete({ _id: req.params.id})
 
         if (!note) {
             res.status(404).send()
         }
 
+        res.send(note)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.delete('/notes', async (req : Request, res : Response) => {
+    try {
+        const note : any = await Note.deleteMany({})
+        if (!note) {
+            res.status(404).send()
+        }
         res.send(note)
     } catch (e) {
         res.status(500).send()
