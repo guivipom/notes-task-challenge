@@ -1,4 +1,4 @@
-# notes-task-lendis
+# Notes-task-lendis
 
 
 On this repository I created a small notepad application for NodeJS with Typescript , that contains the next endpoints:
